@@ -1,0 +1,40 @@
+{
+    "agent": {
+        "metrics_collection_interval": 60,
+        {% if cwa_aws_region is not none and cwa_aws_region|length > 0 -%}
+        "region": "{{ cwa_aws_region }}",
+        {% endif -%}
+        "logfile": "{{ cwa_agent_log_file }}",
+        "debug": false
+    },
+    "metrics": {
+        "append_dimensions": {
+            "AutoScalingGroupName": "${aws:AutoScalingGroupName}",
+            "ImageId": "${aws:ImageId}"
+        },
+        "metrics_collected": {
+            "DiskUtilization": {
+                "measurement": [
+                    "used_percent",
+                    "inodes_free"
+                ],
+                "metrics_collection_interval": 60,
+                "resources": [
+                    "*"
+                ]
+            },
+            "MemoryUtilization": {
+                "measurement": [
+                    "mem_used_percent"
+                ],
+                "metrics_collection_interval": 60
+            },
+            "SwapUtilization": {
+                "measurement": [
+                    "swap_used_percent"
+                ],
+                "metrics_collection_interval": 60
+            }
+        }
+    }
+}

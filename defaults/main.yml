@@ -26,7 +26,7 @@
 # default value: ""
 # notes:
 # * When is empty the role deploy a custom json configuration via template (see: templates/agent/amazon-cloudwatch-agent.json.j2)
-cwa_conf_json_file_content: ""
+cwa_conf_json_file_content: "{{ lookup('file', 'templates/agent/amazon-cloudwatch-agent.minmal.json.j2') | from_json }}"
 
 # description: Define if the agent is running on AWS EC2 instance or outside AWS, in your On Premise infrastructure
 # possible values:
